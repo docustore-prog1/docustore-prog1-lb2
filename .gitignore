@@ -1,8 +1,94 @@
 ﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+# Visual Studio / .NET / C# Project
 ################################################################################
 
-/.vs
-/Archivsoftware/obj
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio cache and build folders
+.vs/
+*.psess
+*.vsp
+*.vspx
+*.vspscc
+*.vssscc
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Tt]emp/
+[Tt]est[Rr]esult*/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+packages/
+.nuget/
+
+# Visual Studio Code
+.vscode/
+.history/
+
+# ReSharper / Rider / JetBrains
 .idea/
+*.sln.iml
 *.iml
+_ReSharper*/
+*.DotSettings.user
+
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs and generated files
+*.log
+*.tlog
+*.pidb
+*.svclog
+*.pdb
+
+# Publish output
+publish/
+dist/
+out/
+wwwroot/
+*.Publish.xml
+*.pubxml
+*.publishproj
+
+# Backup and temporary files
+*~
+*.bak
+*.tmp
+*.temp
+*.old
+*.orig
+
+# Rider / IntelliJ specific
+.idea/
+*.ipr
+*.iws
+
+# ASP.NET specific (if applicable)
+App_Data/
+aspnet_client/
