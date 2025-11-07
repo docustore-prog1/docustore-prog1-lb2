@@ -36,10 +36,6 @@ namespace Archivsoftware.Data.Migrations
                     b.Property<int>("FolderId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PlainText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -68,11 +64,10 @@ namespace Archivsoftware.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentFolderId");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
-                    b.HasIndex("Name", "ParentFolderId")
-                        .IsUnique()
-                        .HasFilter("[ParentFolderId] IS NOT NULL");
+                    b.HasIndex("ParentFolderId");
 
                     b.ToTable("Folders");
                 });

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Archivsoftware.Data.Migrations
 {
     [DbContext(typeof(DocumentDbContext))]
-    [Migration("20251024105613_InitialCreate")]
+    [Migration("20251107084222_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -38,10 +38,6 @@ namespace Archivsoftware.Data.Migrations
 
                     b.Property<int>("FolderId")
                         .HasColumnType("int");
-
-                    b.Property<string>("PlainText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -71,11 +67,10 @@ namespace Archivsoftware.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentFolderId");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
-                    b.HasIndex("Name", "ParentFolderId")
-                        .IsUnique()
-                        .HasFilter("[ParentFolderId] IS NOT NULL");
+                    b.HasIndex("ParentFolderId");
 
                     b.ToTable("Folders");
                 });
