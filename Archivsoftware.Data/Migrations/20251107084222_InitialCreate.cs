@@ -38,7 +38,6 @@ namespace Archivsoftware.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FileData = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    PlainText = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FolderId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -58,11 +57,10 @@ namespace Archivsoftware.Data.Migrations
                 column: "FolderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Folders_Name_ParentFolderId",
+                name: "IX_Folders_Name",
                 table: "Folders",
-                columns: new[] { "Name", "ParentFolderId" },
-                unique: true,
-                filter: "[ParentFolderId] IS NOT NULL");
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Folders_ParentFolderId",

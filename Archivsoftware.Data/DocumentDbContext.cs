@@ -16,19 +16,17 @@ namespace DocumentManager.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Folder>()
-                .HasIndex(f => new { f.Name, f.ParentFolderId })
+                .HasIndex(f => new { f.Name })
                 .IsUnique();
 
             modelBuilder.Entity<Folder>()
                 .HasMany(f => f.SubFolders)
                 .WithOne(f => f.ParentFolder)
-                .HasForeignKey(f => f.ParentFolderId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Folder>()
                 .HasMany(f => f.Documents)
                 .WithOne(d => d.Folder)
-                .HasForeignKey(d => d.FolderId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
