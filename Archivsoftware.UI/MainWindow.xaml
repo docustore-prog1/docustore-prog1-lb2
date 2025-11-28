@@ -3,33 +3,65 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Archivsoftware"
+        xmlns:ui="clr-namespace:Archivsoftware"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Archivsoftware" Height="450" Width="800">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="FilePathTextBox"
-                 Grid.Column="0"
-                 VerticalAlignment="Center"
-                 Padding="5"
-                 IsReadOnly="True"
-                 Text="Select a folder..."
-                 PreviewMouseDown="OpenFilePicker"/>
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <Button x:Name="BrowseButton"
-                Grid.Column="1"
-                Content="Browse..."
-                Width="80"
-                Margin="10,0,0,0"
-                Padding="10,5"
-                Click="OpenFilePicker"/>
+            <TextBox x:Name="FilePathTextBox"
+                     Grid.Column="0"
+                     VerticalAlignment="Center"
+                     Padding="5"
+                     IsReadOnly="True"
+                     Text="Select a folder..."
+                     PreviewMouseDown="OpenFilePicker"/>
+
+            <Button x:Name="BrowseButton"
+                    Grid.Column="1"
+                    Content="Browse..."
+                    Width="80"
+                    Margin="10,0,0,0"
+                    Padding="10,5"
+                    Click="OpenFilePicker"/>
+
+            <Button x:Name="NewFolderButton"
+                    Grid.Column="2"
+                    Content="Neuer Ordner"
+                    Width="120"
+                    Margin="10,0,0,0"
+                    Padding="10,5"
+                    Click="NewFolderButton_OnClick"/>
+        </Grid>
+
+        <TreeView x:Name="FolderTree"
+                  Grid.Row="1"
+                  Grid.Column="0"
+                  SelectedItemChanged="FolderTree_OnSelectedItemChanged">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type ui:FolderTreeItem}"
+                                          ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding Name}" />
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+        </Grid>
     </Grid>
 </Window>
