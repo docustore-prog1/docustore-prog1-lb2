@@ -1,5 +1,4 @@
-﻿
-namespace Archivsoftware
+﻿namespace Archivsoftware
 {
     public class FolderTreeItem
     {

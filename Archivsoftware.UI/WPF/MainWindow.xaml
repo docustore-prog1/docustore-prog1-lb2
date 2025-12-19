@@ -34,7 +34,7 @@
                      VerticalAlignment="Center"
                      Padding="5"
                      IsReadOnly="True"
-                     Text="Select a folder..."
+                     Text="Select files..."
                      PreviewMouseDown="OpenFilePicker"/>
 
             <Button x:Name="UploadButton"
@@ -67,7 +67,16 @@
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type ui:FolderTreeItem}"
                                           ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding Name}" />
+                    <TextBlock Text="{Binding Name}">
+                        <TextBlock.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Umbenennen"
+                                          Click="RenameMenuItem_OnClick" />
+                                <MenuItem Header="Löschen"
+                                          Click="DeleteMenuItem_OnClick" />
+                            </ContextMenu>
+                        </TextBlock.ContextMenu>
+                    </TextBlock>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
         </TreeView>

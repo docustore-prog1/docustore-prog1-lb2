@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36310.24
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archivsoftware.UI", "Archivsoftware.UI\Archivsoftware.UI.csproj", "{9C0DE10E-34AC-4EF0-80E9-23C8589F9C84}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archivsoftware.Core", "Archivsoftware.Core\Archivsoftware.Core.csproj", "{E4B2BBC9-522D-09A3-1766-400426D8FBF0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archivsoftware.Data", "Archivsoftware.Data\Archivsoftware.Data.csproj", "{C0B6417C-CC07-8CD4-E95A-C800C3337DC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archivsoftware", "Archivsoftware.UI\Archivsoftware.csproj", "{9C0DE10E-34AC-4EF0-80E9-23C8589F9C84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +15,6 @@ Global
 		{9C0DE10E-34AC-4EF0-80E9-23C8589F9C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C0DE10E-34AC-4EF0-80E9-23C8589F9C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C0DE10E-34AC-4EF0-80E9-23C8589F9C84}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4B2BBC9-522D-09A3-1766-400426D8FBF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4B2BBC9-522D-09A3-1766-400426D8FBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4B2BBC9-522D-09A3-1766-400426D8FBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4B2BBC9-522D-09A3-1766-400426D8FBF0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0B6417C-CC07-8CD4-E95A-C800C3337DC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0B6417C-CC07-8CD4-E95A-C800C3337DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0B6417C-CC07-8CD4-E95A-C800C3337DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0B6417C-CC07-8CD4-E95A-C800C3337DC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
