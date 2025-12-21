@@ -1,6 +1,9 @@
 ﻿using Archivsoftware.Services;
 using Microsoft.Win32;
 using System.Windows;
+using System.IO;
+using System.Linq;
+
 
 namespace Archivsoftware
 {
@@ -8,6 +11,8 @@ namespace Archivsoftware
     {
         private readonly FolderService _folderService;
         private readonly DocumentService _documentService;
+        private readonly WatcherService _watcherService;
+
 
         private FolderTreeItem? _selectedItem;
 
@@ -17,6 +22,8 @@ namespace Archivsoftware
 
             _folderService = new FolderService();
             _documentService = new DocumentService();
+            _watcherService = new WatcherService(_documentService);
+
 
             LoadFolderTree();
         }
@@ -61,6 +68,35 @@ namespace Archivsoftware
                 LoadFolderTree();
             }
         }
+
+        private void OpenWatcherFolderPicker(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.OpenFolderDialog
+            {
+                Title = "Watcher-Ordner auswählen"
+            };
+
+            var result = dialog.ShowDialog();
+            if (result == true)
+            {
+                var path = dialog.FolderName;
+                var files = Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories)
+                    .Where(f =>
+                    {
+                        var ext = Path.GetExtension(f).ToLowerInvariant();
+                        return ext == ".pdf" || ext == ".docx";
+                    })
+                    .ToArray();
+
+                _documentService.ImportFiles(files, null);
+
+
+                _watcherService.Start(path);
+
+                MessageBox.Show($"Watcher gestartet für:\n{path}", "Watcher", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
 
         private void FolderTree_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
