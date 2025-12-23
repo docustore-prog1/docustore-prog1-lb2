@@ -8,8 +8,10 @@ namespace Archivsoftware.Services
         private FileSystemWatcher? _watcher;
         private readonly DocumentService _documentService;
 
+        // Zielordner in der DB
+        private FolderTreeItem? _targetFolder;
 
-        // Damit andere Teile (z.B. WPF) reagieren können
+        // Event für GUI-Refresh
         public event Action<string>? FileCreatedOrChanged;
 
         public WatcherService(DocumentService documentService)
@@ -17,10 +19,11 @@ namespace Archivsoftware.Services
             _documentService = documentService;
         }
 
-
-        public void Start(string path)
+        public void Start(string path, FolderTreeItem? targetFolder)
         {
             Stop(); // immer nur 1 Ordner gleichzeitig
+
+            _targetFolder = targetFolder;
 
             _watcher = new FileSystemWatcher(path)
             {
@@ -46,21 +49,26 @@ namespace Archivsoftware.Services
                 _watcher.Dispose();
                 _watcher = null;
             }
+
+            _targetFolder = null;
         }
 
         private void OnCreatedOrChanged(object sender, FileSystemEventArgs e)
         {
             // Nur Dateien, keine Ordner
-            if (File.Exists(e.FullPath) == false) return;
+            if (!File.Exists(e.FullPath)) return;
 
             var ext = Path.GetExtension(e.FullPath).ToLowerInvariant();
             if (ext != ".pdf" && ext != ".docx")
                 return;
 
-            if (WaitUntilFileIsReady(e.FullPath) == false) return;
-            _documentService.ImportFiles(new[] { e.FullPath }, null);
+            if (!WaitUntilFileIsReady(e.FullPath)) return;
 
+            // In den Zielordner importieren
+            _documentService.ImportFiles(new[] { e.FullPath }, _targetFolder);
 
+            // GUI informieren
+            FileCreatedOrChanged?.Invoke(e.FullPath);
         }
 
         private static bool WaitUntilFileIsReady(string path)
@@ -81,7 +89,5 @@ namespace Archivsoftware.Services
 
             return false;
         }
-
-
     }
 }

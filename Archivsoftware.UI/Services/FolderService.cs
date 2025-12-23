@@ -136,5 +136,68 @@ namespace Archivsoftware.Services
 
             return node;
         }
+
+        public bool MoveFolder(FolderTreeItem sourceItem, FolderTreeItem? targetItem)
+        {
+            if (sourceItem == null || !sourceItem.IsFolder)
+                return false;
+
+            using var db = new DocumentDbContext();
+
+            var folder = db.Folders
+                .Include(f => f.ParentFolder)
+                .FirstOrDefault(f => f.Id == sourceItem.FolderId);
+
+            if (folder == null)
+                return false;
+
+            Folder? targetFolder = null;
+
+            if (targetItem != null)
+            {
+                if (!targetItem.IsFolder)
+                    return false;
+
+                targetFolder = db.Folders.FirstOrDefault(f => f.Id == targetItem.FolderId);
+                if (targetFolder == null)
+                    return false;
+            }
+
+            // sich selbst nicht als Ziel
+            if (targetFolder != null && targetFolder.Id == folder.Id)
+                return false;
+
+            // nicht in eigenen Nachfahren verschieben
+            if (IsDescendant(targetFolder, folder))
+                return false;
+
+            var targetParentId = targetFolder?.Id;
+
+            // Name darf im Ziel-Ordnerlevel nicht doppelt sein
+            var exists = db.Folders.Any(f =>
+                f.Id != folder.Id &&
+                f.Name == folder.Name &&
+                ((f.ParentFolder == null && targetParentId == null) ||
+                 (f.ParentFolder != null && f.ParentFolder.Id == targetParentId)));
+
+            if (exists)
+                return false;
+
+            folder.ParentFolder = targetFolder;
+            db.SaveChanges();
+            return true;
+        }
+
+        private static bool IsDescendant(Folder? possibleDescendant, Folder folder)
+        {
+            var current = possibleDescendant;
+            while (current != null)
+            {
+                if (current.Id == folder.Id)
+                    return true;
+                current = current.ParentFolder;
+            }
+            return false;
+        }
     }
 }

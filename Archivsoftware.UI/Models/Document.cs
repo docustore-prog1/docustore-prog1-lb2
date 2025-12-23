@@ -8,6 +8,8 @@
 
         public byte[] FileData { get; set; } = [];
 
+        public string PlainText { get; set; } = string.Empty;
+
         public Folder Folder { get; set; } = null!;
     }
 }
