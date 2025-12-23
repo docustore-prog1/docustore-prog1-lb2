@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36310.24
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archivsoftware", "Archivsoftware.UI\Archivsoftware.csproj", "{9C0DE10E-34AC-4EF0-80E9-23C8589F9C84}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Archivsoftware", "Archivsoftware\Archivsoftware.csproj", "{9C0DE10E-34AC-4EF0-80E9-23C8589F9C84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
