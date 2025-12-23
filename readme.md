@@ -1,15 +1,71 @@
-# Introduction 
-This desktop application can be used for the handling an search of documents (PDF/DOCX) using an SQL Database. Used Technologies are WPF and Entity Framework.
+# Archivsoftware
 
-# Getting Started
-Check out the repo and develop.
+Archivsoftware ist eine WPF-Desktopanwendung zur Verwaltung und Volltextsuche von Dokumenten (PDF/DOCX) auf Basis einer SQL Server LocalDB-Datenbank.  
+Dokumente werden als BLOB gespeichert, ihr Plaintext wird extrahiert und für die Suche in der Datenbank abgelegt.
 
-# Build and Test
-To build, you checkout the code and click in Visual Studio on Build -> Build Solution. You have the generated exe in the bin folder. To run, simply click the green Arrow in visual studio or execute the exe.
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Features
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+- Hierarchische Ordnerverwaltung  
+  - Ordner anlegen, umbenennen, verschieben und löschen  
+  - Eindeutige Ordnernamen pro Ebene
+
+- Dateiimport  
+  - Manueller Import von PDF/DOCX über die GUI  
+  - Automatischer Import über einen konfigurierbaren Watcher (überwachter Ordner)  
+  - Speicherung der Dateien als BLOB und zusätzliche Ablage des Plaintext-Inhalts
+
+- Volltextsuche  
+  - Suche über den gespeicherten Plaintext (Stichwörter, einfache Phrasen)  
+  - Trefferliste mit Titel, Ordnerpfad und Text-Snippet  
+  - Detailansicht des Dokumentinhalts (Plaintext)
+
+- WPF-GUI  
+  - Hauptfenster mit Ordnerbaum, Trefferliste und Detailansicht  
+  - Nicht-blockierender Dateiimport im Hintergrund
+
+## Technologie-Stack
+
+- .NET / WPF (Desktop-Anwendung)
+- Entity Framework Core (Code-First, SQL Server LocalDB)
+- C# (Serviceschicht für Ordner, Dokumente, Suche und Watcher)
+- FileSystemWatcher für automatischen Dateiimport
+
+## Getting Started
+
+### Voraussetzungen
+
+- Visual Studio 2022 (oder neuer) mit .NET Desktop Development
+- SQL Server Express LocalDB
+
+### Projekt bauen und starten
+
+1. Repository klonen:
+git clone <URL-zum-Repo>
+
+text
+2. Solution in Visual Studio öffnen.
+3. Sicherstellen, dass das WPF-Projekt als Startprojekt gesetzt ist.
+4. Build: `Build` → `Build Solution`.
+5. Starten:
+   - Entweder per grünem „Start“-Button in Visual Studio,
+   - oder die erzeugte EXE im `bin\<Debug|Release>\`-Ordner ausführen.
+
+Die Datenbank `ArchivSoftwareDB` wird bei Bedarf automatisch via EF-Migrationen erzeugt.
+
+## Bedienung (Kurzüberblick)
+
+- **Ordner anlegen:**  
+  Im Ordnerbaum den gewünschten Elternordner auswählen → „Neuer Ordner“ klicken.
+
+- **Ordner umbenennen / löschen / verschieben:**  
+  Rechtsklick auf einen Ordner im Baum → Kontextmenü nutzen.
+
+- **Dateien manuell importieren:**  
+  „Upload…“ klicken, PDF/DOCX auswählen, Zielordner im Baum wählen → Dateien werden in diesen Ordner importiert.
+
+- **Watcher konfigurieren:**  
+  Zielordner im Baum auswählen → „Watcher-Ordner wählen“ → Dateisystemordner wählen.  
+  Neue PDF/DOCX in diesem Ordner werden automatisch importiert und im Baum angezeigt.
+
+- **Volltextsuche:**  
+  Suchbegriff eingeben → „Suchen“ klicken → Treffer
